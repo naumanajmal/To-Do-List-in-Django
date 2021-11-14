@@ -1,0 +1,81 @@
+<p>to do list</p>
+<form method="POST" action="/">
+	{%csrf_token%}
+	     {{ form.units}} 
+		 {{ form.vacine_name }} 
+		 {{ form.title }} 
+		 {{ form.type }} 
+		 {{ form.expirydate }} 
+
+
+	<input type="submit" name="create task">
+</form method = 'GET'>
+{% for task in tasks %}
+<div>
+	<tr> 
+		<td>{{ task.units}}</td>
+		<td>{{ task.vacine_name }}</td>
+		<td>{{ task.title }}</td>
+		<td>{{ task.type }}</td>
+		<td>{{ task.expirydate }}</td>
+		<td><a href="{% url 'update' task.id %}" name="update">update</a></td>
+		<td><a href="{% url 'delete' task.id %}" name="delete">delete</a></td>
+
+   </tr>
+
+</div>
+{% endfor %}
+<p><b>City : </b> 
+	<select name="city" class="form-control">
+{% for task in tasks %}
+	   <option value="{{ task.id}}">{{ task.title}}</option>
+{% endfor %}
+	</select>
+</p>  
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{{filter.form}}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div>
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>units</th>
+					<th>vacine_name</th>
+					<th>title</th>
+					<th>expirydate</th>
+					<th>type</th>
+					<th>update</th>
+					<th>Remove</th>
+				</tr>
+
+				{% for task in tasks %}
+
+				<tr>
+					<td>{{task.units}}</td>
+					<td>{{task.vacine_name}}</td>
+					<td>{{task.title}}</td>
+					<td>{{task.expirydate}}</td>
+					<td>{{task.type}}</td>
+					
+					<td><a href="{% url 'update' task.id %}" name="update">update</a></td>
+		            <td><a href="{% url 'delete' task.id %}" name="delete">delete</a></td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
